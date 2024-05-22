@@ -60,7 +60,7 @@ def create_sqlalchemy_engine(session: Session):
 
     # Your existing Snowflake connection (replace with your actual connection)
     existing_snowflake_connection = session._conn._conn
-
+    setattr(existing_snowflake_connection,"_interpolate_empty_sequences",False)
     # sql alchemy needs pyformat binding
     existing_snowflake_connection._paramstyle = "pyformat"
     opts = ""

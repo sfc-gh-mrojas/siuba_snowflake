@@ -17,3 +17,9 @@ snowpark:
       imports:
         - "@mystage/snowflake_sqlalchemy-1.5.3-py3-none-any.whl"
       returns: string
+    - name: test_dbcooper
+      handler: "procedures.test_dbcooper"
+      signature: ""
+      imports:
+        - "@mystage/snowflake_sqlalchemy-1.5.3-py3-none-any.whl"
+      returns: string

@@ -14,6 +14,23 @@ from siuba.sql.dply.vector import dense_rank
 def hello_procedure(session: Session, name: str) -> str:
     return print_hello(name)
 
+def test_dbcooper(session: Session) -> str:
+    import contextlib
+    import os
+    with open('/tmp/output.txt', 'w') as f:
+        with contextlib.redirect_stdout(f):
+            from dbcooper import DbCooper
+            engine = create_sqlalchemy_engine(session)
+            _, opts = engine.dialect.create_connect_args(engine.url)
+            db_name, schema_name = opts.get("database"), opts.get("schema")
+            dbc = DbCooper(engine)
+            print(dbc.PUBLIC_ADDRESSES)
+            print(dbc.list())
+            print("done")
+    out = open('/tmp/output.txt','r').read()
+    print(out)
+    return out
+
 
 def test_siuba(session: Session) -> str:
     import contextlib
@@ -126,4 +143,4 @@ if __name__ == "__main__":
     sys._xoptions['snowflake_import_directory'] = "/Users/mrojas/siuba_snowflake"
     # Create a local Snowpark session
     with Session.builder.getOrCreate() as session:
-        test_procedure(session)  # type: ignore
+        test_dbcooper(session)  # type: ignore
