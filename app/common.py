@@ -63,9 +63,15 @@ def create_sqlalchemy_engine(session: Session):
 
     # sql alchemy needs pyformat binding
     existing_snowflake_connection._paramstyle = "pyformat"
+    opts = ""
+    if session.get_current_warehouse() is not None:
+        opts += f"&warehouse={session.get_current_warehouse()}"
+    if session.get_current_role() is not None:
+        opts += f"&role={session.get_current_role()}"
+    conn_url = f"snowflake://{session.get_current_user() or ''}@{session.get_current_account()}/{session.get_current_database() or ''}/{session.get_current_schema() or ''}?{opts}"
     # Create an engine and bind it to the existing Snowflake connection
     engine = create_engine(
-        url='snowflake://',
+        url=conn_url,
         creator=lambda: existing_snowflake_connection
     )
     return engine
