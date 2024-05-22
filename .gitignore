@@ -1,0 +1,6 @@
+.packages/
+.venv/
+app.zip
+__pycache__
+requirements.snowflake.txt
+snowflake_sqlalchemy-1.5.3-py3-none-any.whl

@@ -1,0 +1,19 @@
+definition_version: 1
+snowpark:
+  project_name: "my_snowpark_project"
+  stage_name: "dev_deployment"
+  src: "app/"
+  functions:
+    - name: hello_function
+      handler: "functions.hello_function"
+      signature:
+        - name: "name"
+          type: "string"
+      returns: string
+  procedures:
+    - name: test_siuba
+      handler: "procedures.test_siuba"
+      signature: ""
+      imports:
+        - "@mystage/snowflake_sqlalchemy-1.5.3-py3-none-any.whl"
+      returns: string
