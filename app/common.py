@@ -45,11 +45,10 @@ def create_sqlalchemy_engine(session: Session):
     from sqlalchemy.engine.url import URL
     from sqlalchemy.engine.base import Connection
     setattr(Connection,"url",URL.create("snowflake"))
-    wheel_loader.load('snowflake_sqlalchemy-1.5.3-py3-none-any.whl') # download wheel from pypi
-
     # patch this import
     # patch missing method
     if is_in_stored_procedure():
+        wheel_loader.load('snowflake_sqlalchemy-1.5.3-py3-none-any.whl') # download wheel from pypi
         snowflake.connector.connection.SnowflakeConnection = snowflake.connector.connection.StoredProcConnection
         setattr(snowflake.connector.connection.StoredProcConnection,"_process_params_pyformat",_process_params_pyformat)
         setattr(snowflake.connector.connection.StoredProcConnection,"_process_params_dict",_process_params_dict)
