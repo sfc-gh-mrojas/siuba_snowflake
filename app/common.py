@@ -1,6 +1,3 @@
-def print_hello(name: str):
-    return f"Hello {name}!"
-
 
 from snowflake.snowpark import Session
 from snowflake.snowpark.functions import col
